@@ -1,0 +1,44 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: helloworld-demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-deployment
+  namespace: helloworld-demo
+spec:
+  progressDeadlineSeconds: 180
+  selector:
+    matchLabels:
+      app: helloworld
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+        - name: helloworld
+          # enter the path to your image, be sure to include the correct region prefix
+          image: iad.ocir.io/ax022wvgmjpq/helloworld:v1
+          ports:
+            - containerPort: 8888
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-service
+  namespace: helloworld-demo
+  annotations: 
+    service.beta.kubernetes.io/oci-load-balancer-shape: "10Mbps"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8888
+  selector:
+    app: helloworld
