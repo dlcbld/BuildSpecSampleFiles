@@ -15,4 +15,4 @@ steps:
 outputArtifacts:
   - name: OUTPUT
     type: BINARY
-    location: HelloWorld.class
+    location: src/main/java/org/example/HelloWorld.class
