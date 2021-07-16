@@ -4,13 +4,6 @@ component: build
 timeoutInSeconds: 6000
 runAs: root
 shell: bash
-env:
-  variables:
-    "minor_version" : "20"
-    "testEnv" : "testEnvValue1"
-  exportedVariables:
-    - testEnv
-    - minor_version
 
 steps:
   - type: Command
@@ -29,23 +22,9 @@ steps:
     name: "Build Source 1"
     timeoutInSeconds: 400
     command: |
-      echo "hello world"
-      echo $minor_version
-      minor_version=22
-      echo “test”> abc.txt
       cd src/main/java/org/example/
       javac HelloWorld.java
-  - type: Command
-    name: "Build Source 2"
-    timeoutInSeconds: 400
-    command: |
-      docker build -t iad.ocir.io/id204we8d65n/bugbashcontainer .
-      echo "hello world"
-      echo $minor_version
 outputArtifacts:
-  - name: bugbashUIM
+  - name: OUTPUT
     type: BINARY
-    location: HelloWorld.yaml
-  - name: bugbashArtifact
-    type: DOCKER_IMAGE
-    location: iad.ocir.io/id204we8d65n/bugbashcontainer
+    location: src/main/java/org/example/HelloWorld.class
