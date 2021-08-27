@@ -1,0 +1,34 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+
+env:
+  # base64 encoded config file and private key are stored in vault
+  vaultVariables:
+    configFile : <config file secret ocid>
+    ociCliApiPrivateKey : <private key secret ocid>
+
+steps:
+  - type: Command
+    name: "Setup oci cli with api key"
+    timeoutInSeconds: 400
+    command: |
+      echo "Setup oci-cli directory to store oci private api key and config file."
+      mkdir -p /workspace/oci-cli
+
+      echo "Download oci private api key to the oci-cli directory."
+      echo $ociCliApiPrivateKey | base64 --decode > /workspace/oci-cli/oci_api_key.pem
+
+      echo "Download oci config file to the oci-cli directory."
+      echo $configFile | base64 --decode > /workspace/oci-cli/config
+
+      echo "Configure oci cli to use api_key that was downloaded."
+      export OCI_CLI_AUTH=api_key
+      export OCI_CLI_SUPPRESS_FILE_PERMISSIONS_WARNING=True
+      export OCI_CLI_CONFIG_FILE=/workspace/oci-cli/config
+
+      echo "Testing the setup"
+      oci os ns get
+      echo "lets see!!"
