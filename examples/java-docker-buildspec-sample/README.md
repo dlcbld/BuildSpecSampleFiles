@@ -12,8 +12,8 @@ Let's go!
 The first step to get started is to download the repository to your local workspace
 
 ```shell
-git clone git@github.com:AmodhShenoy/java-docker-buildspec-sample.git
-cd java-docker-buildspec-sample
+git clone git@github.com:dlcbld/BuildSpecSampleFiles.git
+cd examples/java-docker-buildspec-sample
 ```
 
 ### Install and run the application
@@ -83,7 +83,7 @@ The version of the container image that will be delivered to the OCI repository 
 Create a DevOps Artifact to point to the Container Registry repository location you just created above. Enter the information for the Artifact location:
 1. Name: `java-docker-buildspec-sample-artifact`
 1. Type: Container image repository
-1. Path: `iad.ocir.io/TENANCY-NAMESPACE/java-docker-buildspec-sample-image`
+1. Path: `REGION/TENANCY-NAMESPACE/java-docker-buildspec-sample-image`
 1. Replace parameters: Yes
 
 ### Add a Deliver Artifacts stage
