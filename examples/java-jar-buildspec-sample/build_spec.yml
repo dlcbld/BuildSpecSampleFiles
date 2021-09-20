@@ -8,7 +8,8 @@ steps:
     name: "Build Hello World"
     timeoutInSeconds: 400
     command: |
-      gradle compileJava
+      cd src/com/sample/
+      javac Main.java
     onFailure:
       - type: Command
         command: |
@@ -19,7 +20,8 @@ steps:
     timeoutInSeconds: 400
     name: "Create Jar File"
     command: |
-        gradle jar
+      cd  src/com/sample/
+      jar cf build_jar.jar Main.java
     onFailure:
       - type: Command
         command: |
@@ -29,4 +31,4 @@ steps:
 outputArtifacts:
   - name: build_jar
     type: BINARY
-    location: app/build/libs/app.jar
+    location: src/com/sample/build_jar.jar

@@ -1,8 +1,8 @@
-# Build Spec File Example using Java (Gradle) and Creating a Jar file
+# Build Spec File Example using Java and Creating a Jar file
 
 This is an example Hello World project using Java SE JDK 11 and creating a jar file. With the [OCI DevOps service](https://www.oracle.com/devops/devops-service/) and this project, you'll be able to build this application,create a jar file and store it in [OCI Artifact Registry.](https://docs.oracle.com/en-us/iaas/artifacts/using/overview.htm)
 
-In this example, We'll compile Java Hello World app by using gradle and  build a jar file, and store your built file in the OCI Artifact Registry,  all using the OCI DevOps service!
+In this example, We'll build a jar file of this Java Hello World app, and store your built file in the OCI Artifact Registry,  all using the OCI DevOps service!
 
 Let's go!
 
@@ -12,44 +12,31 @@ Let's go!
 The first step to get started is to download the repository to your local workspace
 
 ```shell
-git clone https://github.com/anu-jha/java-gradle.git
-cd java-gradle
+git clone https://github.com/anu-jha/java-jar-buildspec-sample.git
+cd java-jar-buildspec-sample
 ```
 
 ### Install and run the application
 
 1. Install Java SE SDK 11 on your system: https://java.com/en/download/help/download_options.html
 2. Compile the app: 
-
-   ```gradle compileJava```
+   
+   ```javac src/com/sample/Main.java```
 3. Run the app:
    
-    ```gradle run```
-4. To verify, make sure the string "Hello World!" is printed in the shell.
+    ```java src/com/sample/Main```
+4. To verify, make sure the string "Hello World" is printed in the shell.
 
 ### Build a Jar file 
-1. We can locally build a jar file.
+We can locally build a jar file.
 
-  ```
-  gradle jar
-  ```
- This command create a new folder with name "app" and jar file will be store in **app/build/libs**.
- 
-2. Verify that jar file was built, with name `app`, to run jar file we can simply run jar file.
-
-```shell
-cd app/build/libs
-java -jar app.jar
+```
+jar cf build_jar.jar src/com/sample/Main.java
 ```
 
-3. To verify, make sure the string "Hello World!" is printed in the shell.
+Verify that jar file was built, with name `build_jar`
 
 
- ***Note :-***
-  To remove pre build jar file we can use command 
-  ```
-   gradle clean
-  ```
 ## Building the application in OCI DevOps
 Now that We've seen we can locally build this app, let's try this out through OCI DevOps Build service.
 
@@ -85,7 +72,7 @@ Create a [Artifact Registry repository](https://docs.oracle.com/en-us/iaas/artif
 The version of the jar file that will be delivered to the OCI repository is defined by a [parameter](https://docs.oracle.com/en-us/iaas/Content/devops/using/configuring_parameters.htm) in the Artifact URI that matches a Build Spec exported variable or Build Pipeline parameter name.
 
 Create a DevOps Artifact to point to the Artifact Registry repository location you just created above. Enter the information for the Artifact location:
-1. Name: `java-gradle-buildspec-sample-artifact`
+1. Name: `java-jar-buildspec-sample-artifact`
 2. Type: General Artifact
 3. Artifact source: Artifact Registry repository
 4. Version: ${version} (assign some parameter eg:- 1.0, 2.0)
