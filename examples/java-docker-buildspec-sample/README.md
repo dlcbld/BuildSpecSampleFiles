@@ -57,7 +57,7 @@ Now that you've seen you can locally build this app, let's try this out through 
    - Make a note of the OCID of the secret.
    - Now, go to the desired project and select External Connection from the resources.
    - Select type as GitHub and provide OCID of the secret under Personal Access Token.
-   - Finally, allow Build Service (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
+   - Finally, allow BuildPipeline (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
 
 ### Setup your Build Pipeline
 Create a new Build Pipeline to build, test and deliver artifacts from your GitHub Repository.
@@ -68,13 +68,13 @@ In your Build Pipeline, first add a Managed Build stage
 2. For the Primary Code Repository follow the below steps
     - Select connection type as GitHub
     - Select the external connection you created above
-    - Give the URL to the repo which contains your application.
+    - Give the HTTPS URL to the repo which contains your application.
     - Select main branch.
     
 ### Create a Container Registry repository
 Create a [Container Registry repository](https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrycreatingarepository.htm) for the `hello-world` container image built in the Managed Build stage.
 1. You can name the repo: `java-docker-buildspec-sample-image`. So if you create the repository in the Ashburn region, the path is iad.ocir.io/TENANCY-NAMESPACE/java-docker-buildspec-sample-image
-2. Set the repository access to public so that you can pull the container image without authorization from OKE. Under "Actions", choose `Change to public`.
+2. Set the repository access to private for security reasons. You can add policies to manage access for the same.
 
 
 ### Create a DevOps Artifact for your container image repository
@@ -83,13 +83,13 @@ The version of the container image that will be delivered to the OCI repository 
 Create a DevOps Artifact to point to the Container Registry repository location you just created above. Enter the information for the Artifact location:
 1. Name: `java-docker-buildspec-sample-artifact`
 1. Type: Container image repository
-1. Path: `REGION/TENANCY-NAMESPACE/java-docker-buildspec-sample-image`
+1. Path: `REGION/TENANCY-OBJECT-STORAGE-NAMESPACE/java-docker-buildspec-sample-image`
 1. Replace parameters: Yes
 
 ### Add a Deliver Artifacts stage
 Let's add a **Deliver Artifacts** stage to your Build Pipeline to deliver the `java-docker-buildspec-sample` container image to an OCI repository.
 
-The Deliver Artifacts stage **maps** the ouput Artifacts from the Managed Build stage with the version to deliver to a DevOps Artifact resource, and then to the OCI repository.
+The Deliver Artifacts stage **maps** the ouput Artifacts from the Managed Build stage with the version to deliver to OCI Container Registry, through the DevOps Artifact Resource.
 
 Add a **Deliver Artifacts** stage to your Build Pipeline after the **Managed Build** stage. To configure this stage:
 1. In your Deliver Artifacts stage, choose `Select Artifact`
