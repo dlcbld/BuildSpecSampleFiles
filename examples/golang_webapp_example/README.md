@@ -1,4 +1,4 @@
-# Build Spec File Example using Java and Creating a Jar file
+# Build Spec File Example using golang web application and Creating an executable file
 
 This is an example of a golang web application and creating an executable file. With the [OCI DevOps service](https://www.oracle.com/devops/devops-service/) and this project, you'll be able to build this application,store the executable file in [OCI Artifact Registry.](https://docs.oracle.com/en-us/iaas/artifacts/using/overview.htm)
 
