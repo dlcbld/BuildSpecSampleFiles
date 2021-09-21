@@ -9,7 +9,7 @@ In this example, you'll build a simple Ruby web application, test it locally and
 The first step is to download the repository to your local workspace.
 
 ```
-git clone git@github.com:yashj0209/buildspec_ruby_example.git
+git clone git@github.com:dlcbld/BuildSpecSampleFiles.git
 ```
 
 ### Install the Requirements and Run the App
@@ -17,7 +17,7 @@ Open a terminal and test out the Ruby Hello World web app example.
 
 1. Download and install Ruby : https://www.ruby-lang.org/en/downloads/
 2. Verify Ruby is installed by : ```ruby -v```
-3. Navigate to project's root directory : ```cd buildspec_ruby_example ```
+3. Navigate to project's root directory : ```cd examples/buildspec_ruby_example ```
 4. Install bundler : ``` gem install bundler ```
 5. Install other dependencies (listed in Gemfile): ``` bundle install``` . This will generate Gemfile.lock
 6. Run the application : ``` ruby app.rb ```
@@ -76,6 +76,8 @@ In the project, under Artifacts, create a DevOps Artifact to point to the Artifa
 6. Replace parameters: Yes, substitute placeholders
 <img src="create_artifact_ruby_p1.png"/>
 <img src="create_artifact_ruby_p2.png"/>
+
+Required policies must be added for the Artifact Registry and DevOps Artifact resource. Reference : https://docs.oracle.com/en-us/iaas/artifacts/using/iam-policies.htm
 
 #### Add a Deliver Artifacts stage
 
