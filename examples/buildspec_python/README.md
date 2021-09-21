@@ -93,6 +93,8 @@ In the project, under Artifacts, create a DevOps Artifact to point to the Contai
 
 <img src="create_artifact.png" />
 
+Required policies must be added for the Container Registry repository and DevOps Artifact resource. Reference : https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/registrypolicyreference.htm
+
 #### Add a Deliver Artifacts stage
 
 Let's add a Deliver Artifacts stage to your Build Pipeline to deliver the ```python-flask-example``` container to an OCI repository.
