@@ -20,7 +20,7 @@ steps:
       - type: Command
         command: |
           echo "Docker Image creation failed"
-        timeoutInSeconds: 600
+        timeoutInSeconds: 4000
         runAs: root
 
 outputArtifacts:
