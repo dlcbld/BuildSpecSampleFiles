@@ -69,7 +69,7 @@ Reference: https://docs.oracle.com/en-us/iaas/artifacts/using/overview.htm
     - Artifact location: Choose set Custom location and provide path(target/HelloWorld-0.0.1-SNAPSHOT.jar) and version.
     - Replace parameters: Yes, substitute placeholders
    
-<img src="./Creating DevOps Artifact.png" />
+<img src="./assets/Creating DevOps Artifact.png" />
 
 Make sure you have added required policies for both your DevOps Artifact and your Artifact Registry Repository according to [this.](https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/registrypolicyreference.htm)
 
