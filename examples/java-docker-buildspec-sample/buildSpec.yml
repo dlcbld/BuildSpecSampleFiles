@@ -1,12 +1,12 @@
 version: 0.1
 component: build
-timeoutInSeconds: 6000
+timeoutInSeconds: 20000
 runAs: root
 shell: bash
 steps:
   - type: Command
     name: "Build Hello World"
-    timeoutInSeconds: 400
+    timeoutInSeconds: 10000
     command: |
       cd src/com/sample/
       javac HelloWorld.java
@@ -14,10 +14,10 @@ steps:
       - type: Command
         command: |
           echo "Building Hello World failed"
-        timeoutInSeconds: 400
+        timeoutInSeconds: 1000
         runAs: root
   - type: Command
-    timeoutInSeconds: 400
+    timeoutInSeconds: 10000
     name: "Create Docker image"
     command: |
       docker build -t hello-world:1.0 .
@@ -25,7 +25,7 @@ steps:
       - type: Command
         command: |
           echo "Creating Docker image failed"
-        timeoutInSeconds: 400
+        timeoutInSeconds: 1000
         runAs: root
 outputArtifacts:
   - name: hello_world_image
