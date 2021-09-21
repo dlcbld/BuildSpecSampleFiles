@@ -1,0 +1,33 @@
+version: 0.1
+component: build
+timeoutInSeconds: 2000
+runAs: root
+shell: bash
+
+steps : 
+  - type: Command
+    name: "Ruby Build Source 1"
+    timeoutInSeconds: 2000
+    command: |
+       chmod +x app.rb
+       echo "Permissions to execute are provided"
+       echo "Ruby version is $(ruby -v)"
+       echo "Installing Bundler"
+       gem install bundler
+       bundle install 
+       #echo "starting server"
+       #ruby app.rb > result.txt
+       echo "build complete"
+       
+    onFailure:
+      - type: Command
+        command: |
+          echo "Execution failed"
+        timeoutInSeconds: 2000
+        runAs: root
+
+
+outputArtifacts:
+  - name: OUTPUT
+    type: BINARY
+    location: app.rb
