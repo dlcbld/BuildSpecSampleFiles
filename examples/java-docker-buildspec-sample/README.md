@@ -78,6 +78,8 @@ Create a [Container Registry repository](https://docs.oracle.com/en-us/iaas/Cont
 
 
 ### Create a DevOps Artifact for your container image repository
+Reference :  https://docs.oracle.com/en-us/iaas/Content/devops/using/containerimage_repository_artifact.htm
+
 The version of the container image that will be delivered to the OCI repository is defined by a [parameter](https://docs.oracle.com/en-us/iaas/Content/devops/using/configuring_parameters.htm) in the Artifact URI that matches a Build Spec exported variable or Build Pipeline parameter name.
 
 Create a DevOps Artifact to point to the Container Registry repository location you just created above. Enter the information for the Artifact location:
@@ -85,6 +87,10 @@ Create a DevOps Artifact to point to the Container Registry repository location 
 1. Type: Container image repository
 1. Path: `REGION/TENANCY-OBJECT-STORAGE-NAMESPACE/java-docker-buildspec-sample-image`
 1. Replace parameters: Yes
+
+<img src="./assets/Create DevOps Artifact.png" />
+
+Make sure you have added required policies for both your DevOps Artifact and your Container Repository according to [this](https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/registrypolicyreference.htm)
 
 ### Add a Deliver Artifacts stage
 Let's add a **Deliver Artifacts** stage to your Build Pipeline to deliver the `java-docker-buildspec-sample` container image to an OCI repository.
