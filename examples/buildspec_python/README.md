@@ -55,7 +55,7 @@ Now that you've seen how you can locally build and test this app, let's build ou
    - Make a note of the OCID of the secret.
    - Now, go to the desired project and select External Connection from the resources.
    - Select type as Github and provide OCID of the secret under Personal Access Token.
-   - Finally, allow Build Service (dynamic group with DevOps Resources) to use PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
+   - Finally, allow Build Pipeline (dynamic group with DevOps Resources) to use PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
 
 ### Setup your Build Pipeline
 
@@ -76,9 +76,11 @@ In your Build Pipeline, first add a Managed Build stage.
 
 Create a [Container Registry repository](https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrycreatingarepository.htm) for the python-flask-example container image built in the Managed Build stage.
 1. You can name the repo: ```python-flask-example```. The path to the repo will be REGION/TENANCY-NAMESPACE/python-flask-example
-2. To pull the container image without authorization, set the repository access to public. Under "Actions", choose ```Change to public```.
+2. By default, the repository access is set to private. Policies can be added to manage access to the repository.
 
 #### Create a DevOps Artifact for your container image repository
+
+Reference :  https://docs.oracle.com/en-us/iaas/Content/devops/using/containerimage_repository_artifact.htm
 
 The version of the container image that will be delivered to the OCI repository is defined by a parameter in the Artifact URI that matches a Build Spec File exported variable (the variable ```version``` in this example) or Build Pipeline parameter name.
 
@@ -89,11 +91,12 @@ In the project, under Artifacts, create a DevOps Artifact to point to the Contai
 3. Path: REGION/TENANCY-NAMESPACE/python-flask-example
 4. Replace parameters: Yes, substitute placeholders
 
+
 #### Add a Deliver Artifacts stage
 
 Let's add a Deliver Artifacts stage to your Build Pipeline to deliver the ```python-flask-example``` container to an OCI repository.
 
-The Deliver Artifacts stage maps the output Artifacts from the Managed Build stage with the version to deliver to a DevOps Artifact resource, and then to the OCI repository (OCIR).
+The Deliver Artifacts stage maps the output Artifacts from the Managed Build stage with the version to deliver to OCI Repository (OCIR) through the DevOps Artifact resource.
 
 Add a Deliver Artifacts stage to your Build Pipeline after the Managed Build stage. To configure this stage:
 
