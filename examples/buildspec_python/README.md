@@ -91,7 +91,7 @@ In the project, under Artifacts, create a DevOps Artifact to point to the Contai
 3. Path: REGION/TENANCY-NAMESPACE/python-flask-example
 4. Replace parameters: Yes, substitute placeholders
 
-<img src="./assets/create_artifact.png" />
+<img src="create_artifact.png" />
 
 #### Add a Deliver Artifacts stage
 
@@ -103,10 +103,10 @@ Add a Deliver Artifacts stage to your Build Pipeline after the Managed Build sta
 
 1. In your Deliver Artifacts stage, choose ```Select Artifact```
 2. From the list of artifacts select the ```python-flask-example container``` artifact that you created above
-<img src="./assets/select_artifact.png" />
+<img src="select_artifact.png" />
 
 3. Assign the container image outputArtifact from the ```build_spec.yml``` to the DevOps project artifact. For the "Build config/result Artifact name" enter: ```flask_python``` (This name should be the same as the one mentioned in the outputArtifact section of the build_spec.yml file).
-<img src="./assets/deliver_artifact_stage_full.png" />
+<img src="deliver_artifact_stage_full.png" />
 
 ### Run your Build in OCI DevOps
 
