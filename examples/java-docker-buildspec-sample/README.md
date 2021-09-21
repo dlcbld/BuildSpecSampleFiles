@@ -93,11 +93,11 @@ The Deliver Artifacts stage **maps** the ouput Artifacts from the Managed Build 
 
 Add a **Deliver Artifacts** stage to your Build Pipeline after the **Managed Build** stage. To configure this stage:
 1. In your Deliver Artifacts stage, choose `Select Artifact`
-   ![](assets/Configuring Deliver Artifact Stage.png)
+   <img src="./assets/Final Details in Deliver Artifact Stage.png" />
 1. From the list of artifacts select the `java-docker-buildspec-sample-artifact` artifact that you created above
-   ![](assets/Selecting DevOps Artifact resource.png)
+   <img src="./assets/Selecting DevOps Artifact resource.png" />
 1. In the next section, you'll assign the  container image outputArtifact from the `build_spec.yaml` to the DevOps project artifact. For the "Build config/result Artifact name" enter: `hello_world_image`
-   ![](assets/Final Details in Deliver Artifact Stage.png)
+   <img src="./assets/Final Details in Deliver Artifact Stage.png" />
 
 
 ### Run your Build in OCI DevOps
