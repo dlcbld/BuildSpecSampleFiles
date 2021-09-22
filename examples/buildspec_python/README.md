@@ -93,7 +93,9 @@ In the project, under Artifacts, create a DevOps Artifact to point to the Contai
 
 <img src="create_artifact.png" />
 
-Required policies must be added for the Container Registry repository and DevOps Artifact resource. Reference : https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/registrypolicyreference.htm
+Required policies must be added for the Container Registry repository and DevOps Artifact resource.
+1. Provide access to OCIR to deliver artifacts : ```Allow dynamic-group dg-with-devops-resources to manage repos in tenancy```
+2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```
 
 #### Add a Deliver Artifacts stage
 
