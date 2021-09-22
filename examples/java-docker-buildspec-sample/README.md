@@ -90,7 +90,10 @@ Create a DevOps Artifact to point to the Container Registry repository location 
 
 <img src="./assets/Create DevOps Artifact.png" />
 
-Make sure you have added required policies for both your DevOps Artifact and your Container Repository according to [this](https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/registrypolicyreference.htm)
+Required policies must be added in the root compartment for the Container Registry repository and DevOps Artifact resource.
+1. Provide access to OCIR to deliver artifacts : ```Allow dynamic-group dg-with-devops-resources to manage repos in tenancy```
+2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```
+
 
 ### Add a Deliver Artifacts stage
 Let's add a **Deliver Artifacts** stage to your Build Pipeline to deliver the `java-docker-buildspec-sample` container image to an OCI repository.
