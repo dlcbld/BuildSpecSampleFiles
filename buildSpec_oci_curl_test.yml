@@ -1,0 +1,28 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+
+env:
+  variables:
+    "testEnv" : "testValue1"
+    
+steps:
+  - type: Command
+    name: "Test oci cli with access"
+    timeoutInSeconds: 400
+    command: |
+      echo "Have access"
+      PATH=$PATH:/test
+      echo $PATH
+      oci artifacts generic artifact get --artifact-id ocid1.genericartifact.oc1.iad.0.amaaaaaa34lgq7aakerwvqyv3vifcjk4uw7f4vlt7mdff4ugdhjjhobiruja
+      
+      
+  - type: Command
+    name: "Test oci cli without access access"
+    timeoutInSeconds: 400
+    command: |
+      oci artifacts generic artifact get --artifact-id ocid1.genericartifact.oc1.iad.0.amaaaaaa34lgq7aadhnjf334pyds2r2gemucsyad2eesxhzj2crsb5fw7xla
+      echo $PATH
+      echo "Do not have access"
