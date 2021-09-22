@@ -71,7 +71,9 @@ Reference: https://docs.oracle.com/en-us/iaas/artifacts/using/overview.htm
    
 <img src="./assets/Creating DevOps Artifact.png" />
 
-Make sure you have added required policies for both your DevOps Artifact and your Artifact Registry Repository according to [this.](https://docs.oracle.com/en-us/iaas/Content/Identity/Reference/registrypolicyreference.htm)
+Required policies must be added in the root compartment for the Artifact Registry repository and DevOps Artifact resource.
+1. Provide access to Artifact Repository to deliver artifacts : ```Allow dynamic-group dg-with-devops-resources to manage repos in tenancy```
+2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```
 
 
 ### Add a Deliver Artifacts stage
