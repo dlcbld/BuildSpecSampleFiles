@@ -67,9 +67,9 @@ Create a DevOps Artifact to point to the Artifact Registry repository location y
 5. Path: `REGION/TENANCY-NAMESPACE/myGoWebAppArtifact`
 6. Replace parameters: Yes
 
-Required policies must be added in the root compartment for the Container Registry repository and DevOps Artifact resource.
+Required policies must be added in the root compartment for the Artifact Registry repository and DevOps Artifact resource.
 1. Provide access to Generic Artifactory to deliver artifacts : ```Allow dynamic-group dg-with-devops-resources to manage repos in tenancy```
-2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```x
+2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```
 
 ### Add a Deliver Artifacts stage
 Let's add a **Deliver Artifacts** stage to your Build Pipeline to deliver the `golangWebApp` executable file to an OCI repository.
