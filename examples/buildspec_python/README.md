@@ -93,7 +93,7 @@ In the project, under Artifacts, create a DevOps Artifact to point to the Contai
 
 <img src="create_artifact.png" />
 
-Required policies must be added for the Container Registry repository and DevOps Artifact resource.
+Required policies must be added in the root compartment for the Container Registry repository and DevOps Artifact resource.
 1. Provide access to OCIR to deliver artifacts : ```Allow dynamic-group dg-with-devops-resources to manage repos in tenancy```
 2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```
 
@@ -120,10 +120,4 @@ Use the Manual Run button to start a Build Run
 
 Manual Run will use the Primary Code Repository, will start the Build Pipeline, first running the Managed Build stage, followed by the Deliver Artifacts stage.
 
-After the Build Pipeline execution is complete, we can view the container image stored in the OCI Container Registry, which can then be pulled to local workspace (Under ```Actions``` , choose ``` Copy Pull Command```).
-
-
-
-
-
-
+After the Build Pipeline execution is complete, we can view the container image stored in the OCI Container Registry, which can then be pulled to local workspace, if access is allowed to the user (Under ```Actions``` , choose ``` Copy Pull Command```) 
