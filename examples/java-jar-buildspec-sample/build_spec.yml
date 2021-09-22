@@ -6,7 +6,7 @@ shell: bash
 steps:
   - type: Command
     name: "Build Hello World"
-    timeoutInSeconds: 400
+    timeoutInSeconds: 6000
     command: |
       cd src/com/sample/
       javac Main.java
@@ -14,10 +14,10 @@ steps:
       - type: Command
         command: |
           echo "Building Hello World failed"
-        timeoutInSeconds: 400
+        timeoutInSeconds: 6000
         runAs: root
   - type: Command
-    timeoutInSeconds: 400
+    timeoutInSeconds: 6000
     name: "Create Jar File"
     command: |
       cd  src/com/sample/
@@ -26,7 +26,7 @@ steps:
       - type: Command
         command: |
           echo "Creating jar File failed"
-        timeoutInSeconds: 400
+        timeoutInSeconds: 6000
         runAs: root
 outputArtifacts:
   - name: build_jar

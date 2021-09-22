@@ -51,7 +51,7 @@ Now that We've seen we can locally build this app, let's try this out through OC
    - Make a note of the OCID of the secret.
    - Now, go to the desired project and select External Connection from the resources.
    - Select type as GitHub and provide OCID of the secret under Personal Access Token.
-   - Finally, allow Build Service (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
+   - Finally, allow Build Pipeline (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
 
 ### Setup your Build Pipeline
 Create a new Build Pipeline to build, test and deliver artifacts from your GitHub Repository.
@@ -76,6 +76,16 @@ Create a DevOps Artifact to point to the Artifact Registry repository location y
 2. Type: General Artifact
 3. Artifact source: Artifact Registry repository
 4. Version: ${version} (assign some parameter eg:- 1.0, 2.0)
+
+<img src="create-arti_1.png" />
+
+<img src="create-arti_2.png" />
+
+Required policies must be added in the root compartment for the Generic Artifactory repository and DevOps Artifact resource.
+
+1. Provide access to Generic Artiafactory to deliver artifacts : Allow dynamic-group dg-with-devops-resources to manage repos in tenancy
+2. Provide access to read deploy artifacts in deliver artifact stage : Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy
+
 ### Add a Deliver Artifacts stage
 Let's add a **Deliver Artifacts** stage to your Build Pipeline to deliver the `build_jar` jar file to an OCI repository.
 
@@ -85,6 +95,11 @@ Add a **Deliver Artifacts** stage to your Build Pipeline after the **Managed Bui
 1. In your Deliver Artifacts stage, choose `Select Artifact`
 1. From the list of artifacts select the `java-jar-buildspec-sample-artifact` artifact that you created above
 1. In the next section, We'll assign the  jar file outputArtifact from the `build_spec.yaml` to the DevOps project artifact. For the "Build config/result Artifact name" enter: `build_jar`
+
+
+<img src="deliver-stage_1.png" />
+
+<img src="deliver-stage_2.png" />
 
 
 ### Run your Build in OCI DevOps
