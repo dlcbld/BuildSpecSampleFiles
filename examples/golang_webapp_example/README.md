@@ -40,7 +40,7 @@ Now that you've seen you can locally build this app, let's try this out through 
    - Make a note of the OCID of the secret.
    - Now, go to the desired project and select External Connection from the resources.
    - Select type as GitHub and provide OCID of the secret under Personal Access Token.
-   - Finally, allow Build Service (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
+   - Finally, allow Build Pipeline (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
 ### Setup your Build Pipeline
 Create a new Build Pipeline to build, test and deliver artifacts from your GitHub Repository.
 ### Managed Build stage
@@ -52,25 +52,33 @@ In your Build Pipeline, first add a Managed Build stage
     - Give the URL to the repo which contains your application.
     - Select main branch.
     
-### Create a Container Registry repository
+### Create a Artifact Registry repository
 Create a [Artifact Registry repository](https://docs.oracle.com/en-us/iaas/artifacts/using/manage-repos.htm#create-repo).
 
 ### Create a DevOps Artifact for your artifact repository
 Create a DevOps Artifact to point to the Artifact Registry repository location you just created above. Enter the information for the Artifact location:
 1. Name: `myGoAppArtifact`
+<img src="create_artifact_go.png" />
 2. Type: General Artifact
 3. Artifact source: Artifact registry Repository
     Select your Artifact Registry repository created in previous step.
+    <img src="select_artifact_go.png" />
 4. Artifact Location: Set custom location
-4. Path: `REGION/TENANCY-NAMESPACE/myGoWebAppArtifact`
-1. Replace parameters: Yes
+5. Path: `REGION/TENANCY-NAMESPACE/myGoWebAppArtifact`
+6. Replace parameters: Yes
+
+Required policies must be added in the root compartment for the Container Registry repository and DevOps Artifact resource.
+1. Provide access to Generic Artifactory to deliver artifacts : ```Allow dynamic-group dg-with-devops-resources to manage repos in tenancy```
+2. Provide access to read deploy artifacts in deliver artifact stage : ```Allow dynamic-group dg-with-devops-resources to manage devops-family in tenancy```x
+
 ### Add a Deliver Artifacts stage
 Let's add a **Deliver Artifacts** stage to your Build Pipeline to deliver the `golangWebApp` executable file to an OCI repository.
 The Deliver Artifacts stage **maps** the ouput Artifacts from the Managed Build stage with the version to deliver to a DevOps Artifact resource, and then to the OCI repository.
 Add a **Deliver Artifacts** stage to your Build Pipeline after the **Managed Build** stage. To configure this stage:
 1. In your Deliver Artifacts stage, choose `Select Artifact`
-2. From the list of artifacts select the `myGoAppArtifact` artifact that you created above
-3. In the next section, you'll assign the  container image outputArtifact from the `build_spec.yaml` to the DevOps project artifact. For the "Build config/result Artifact name" enter: `goWebAppArtifact`
+2. From the list of artifacts select the `myGoAppArtifact` artifact that you created above.
+<img src="deliver_artifact_go.png" />
+3. In the next section, you'll assign the image outputArtifact from the `build_spec.yaml` to the DevOps project artifact. For the "Build config/result Artifact name" enter: `goWebAppArtifact`
 
 
 ### Run your Build in OCI DevOps
