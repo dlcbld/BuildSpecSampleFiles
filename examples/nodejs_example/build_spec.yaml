@@ -1,0 +1,24 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+env:
+  exportedVariables:
+    - version
+steps:
+  - type: Command
+    name: "Build NodeJS app"
+    timeoutInSeconds: 6000
+    command: |
+      yum install -y oracle-nodejs-release-el7 oracle-release-el7
+      npm -version
+      npm install --global pkg
+      pkg app.js
+      ls -la
+      echo "build finished.."
+      
+outputArtifacts:
+  - name: NodeJSAppArtifact
+    type: BINARY
+    location: app-macos
