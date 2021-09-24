@@ -1,6 +1,6 @@
 version: 0.1
 component: build
-timeoutInSeconds: 20000
+timeoutInSeconds: 28000
 runAs: root
 shell: bash
 steps:
@@ -33,7 +33,18 @@ steps:
           echo "Building application failed"
         timeoutInSeconds: 1000
         runAs: root
+  - type: Command
+    name: "Creating Docker image"
+    timeoutInSeconds: 10000
+    command: |
+      docker build -t hello-world:1.0 .
+    onFailure:
+      - type: Command
+        command: |
+          echo "Creating Docker image failed"
+        timeoutInSeconds: 1000
+        runAs: root
 outputArtifacts:
-  - name: HelloWorld-Jar
-    type: BINARY
-    location: target/HelloWorld-0.0.1-SNAPSHOT.jar
+  - name: hello_world_image
+    type: DOCKER_IMAGE
+    location: hello-world:1.0
