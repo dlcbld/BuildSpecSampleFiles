@@ -1,0 +1,34 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+steps:
+  - type: Command
+    name: "Build Hello World"
+    timeoutInSeconds: 6000
+    command: |
+      cd src/com/sample/
+      javac Main.java
+    onFailure:
+      - type: Command
+        command: |
+          echo "Building Hello World failed"
+        timeoutInSeconds: 6000
+        runAs: root
+  - type: Command
+    timeoutInSeconds: 6000
+    name: "Create Jar File"
+    command: |
+      cd  src/com/sample/
+      jar cf build_jar.jar Main.java
+    onFailure:
+      - type: Command
+        command: |
+          echo "Creating jar File failed"
+        timeoutInSeconds: 6000
+        runAs: root
+outputArtifacts:
+  - name: build_jar
+    type: BINARY
+    location: src/com/sample/build_jar.jar
