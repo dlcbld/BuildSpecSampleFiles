@@ -1,0 +1,38 @@
+version: 0.1
+component: build
+timeoutInSeconds: 20000
+runAs: root
+shell: bash
+env:
+  variables:
+    DOCKERHUB_REPO: #Add your DockerHub Repo name here
+    tag_name: "latest" #Change tag if needed
+  vaultVariables:
+    DOCKERHUB_USERNAME: #Add OCID to the secret containing your DockerHub username
+    DOCKERHUB_PASSWORD: #Add OCID to the secret containing your DockerHub password
+steps:
+  - type: Command
+    name: "Building Hello World"
+    timeoutInSeconds: 10000
+    command: |
+      cd src/com/sample/
+      javac HelloWorld.java
+    onFailure:
+      - type: Command
+        command: |
+          echo "Building Hello World failed"
+        timeoutInSeconds: 1000
+        runAs: root
+  - type: Command
+    timeoutInSeconds: 10000
+    name: "Pushing Docker image to DockerHub"
+    command: |
+      docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${tag_name} .
+      docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}
+      docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${tag_name}
+    onFailure:
+      - type: Command
+        command: |
+          echo "Pushing Docker image to DockerHub failed"
+        timeoutInSeconds: 1000
+        runAs: root
