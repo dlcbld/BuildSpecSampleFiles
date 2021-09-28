@@ -1,0 +1,29 @@
+version: 0.1
+component: build
+timeoutInSeconds: 4000
+runAs: root
+shell: bash
+env:
+  variables:
+    tag : "1.0"
+  exportedVariables:
+    - tag
+    - version
+
+steps:
+  - type: Command
+    name: "Dockerize the python application"
+    command: |
+      docker build -t python_flask_ex:${tag} .
+      version=`cat ./version.txt`
+    onFailure:
+      - type: Command
+        command: |
+          echo "Docker Image creation failed"
+        timeoutInSeconds: 4000
+        runAs: root
+
+outputArtifacts:
+  - name: flask_python
+    type: DOCKER_IMAGE
+    location: python_flask_ex:1.0
