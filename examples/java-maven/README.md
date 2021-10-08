@@ -63,7 +63,12 @@ In your Build Pipeline, first add a Managed Build stage
    - Select the external connection you created above
    - Give the HTTPS URL to the repo which contains your application.
    - Select main branch.
-   
+
+### Create a Container Registry repository
+Create a [Container Registry repository](https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrycreatingarepository.htm) for the `hello_world_image` container image built in the Managed Build stage.
+1. You can name the repo: `java-docker-buildspec-sample-image`. So if you create the repository in the Ashburn region, the path is iad.ocir.io/TENANCY-NAMESPACE/java-docker-buildspec-sample-image
+2. Set the repository access to private for security reasons. You can add policies to manage access for the same.
+
 ### Create a DevOps Artifact for your container image repository
 Reference :  https://docs.oracle.com/en-us/iaas/Content/devops/using/containerimage_repository_artifact.htm
 
