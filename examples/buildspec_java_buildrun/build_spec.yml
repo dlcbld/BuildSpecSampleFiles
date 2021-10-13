@@ -1,0 +1,31 @@
+version: 0.1
+component: build
+timeoutInSeconds: 4000
+runAs: root
+shell: bash
+    
+steps:
+  - type: Command
+    name: "Build Hello World"
+    timeoutInSeconds: 2000
+    command: |
+      cd src/com/example
+      javac HelloWorld.java
+    onFailure:
+      - type: Command
+        command: |
+          echo "Compilation failed"
+        timeoutInSeconds: 200
+        runAs: root
+  - type: Command
+    name: "Print Hello World"
+    timeoutInSeconds: 2000
+    command: |
+      cd src
+      java com.example.HelloWorld $var_b
+    onFailure:
+      - type: Command
+        command: |
+          echo "Running failed"
+        timeoutInSeconds: 200
+        runAs: root
