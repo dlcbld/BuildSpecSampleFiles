@@ -45,7 +45,7 @@ In your build_spec.yaml, specify "var" under exportedVariables section and in co
 To configure access for oci-curl for the first time, follow this link https://confluence.oci.oraclecorp.com/display/DLCBLD/HOWTO%3A+Setup+oci-curl+on+localhost.
 
 
-#### make a createBuildRun.json file and paste the followinf contents in it (BuildRun argument as var:22)
+#### make a createBuildRun.json file and paste the followinf contents in it (BuildRun argument as var:23)
 ```
     {
     "displayName": "build#1",
@@ -59,7 +59,7 @@ To configure access for oci-curl for the first time, follow this link https://co
         "items": [
         {
             "name": "var",
-            "value": "22"
+            "value": "23"
         }
         ]
     },
