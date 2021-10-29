@@ -1,0 +1,50 @@
+version: 0.1
+component: build
+timeoutInSeconds: 28000
+runAs: root
+shell: bash
+steps:
+  - type: Command
+    name: "Installing JDK15"
+    timeoutInSeconds: 10000
+    command: |
+      cd ~
+      mkdir InstalledSoftwares
+      cd InstalledSoftwares
+      wget https://download.java.net/openjdk/jdk15/ri/openjdk-15+36_linux-x64_bin.tar.gz
+      tar -xvf openjdk-15+36_linux-x64_bin.tar.gz
+      export JAVA_HOME=~/InstalledSoftwares/jdk-15
+      export PATH=~/InstalledSoftwares/jdk-15/bin:$PATH
+      java -version
+    onFailure:
+      - type: Command
+        command: |
+          echo "Installing JDK 15 failed"
+        timeoutInSeconds: 1000
+        runAs: root
+  - type: Command
+    name: "Building JAR"
+    timeoutInSeconds: 10000
+    command: |
+      mvn clean install
+    onFailure:
+      - type: Command
+        command: |
+          echo "Building application failed"
+        timeoutInSeconds: 1000
+        runAs: root
+  - type: Command
+    name: "Creating Docker image"
+    timeoutInSeconds: 10000
+    command: |
+      docker build -t hello-world:1.0 .
+    onFailure:
+      - type: Command
+        command: |
+          echo "Creating Docker image failed"
+        timeoutInSeconds: 1000
+        runAs: root
+outputArtifacts:
+  - name: hello_world_image
+    type: DOCKER_IMAGE
+    location: hello-world:1.0
