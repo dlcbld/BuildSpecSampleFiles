@@ -12,6 +12,11 @@ steps:
     command: |
       cd src/main/java/org/example/
       javac HelloWorld.java
+  - type: Command
+    name: "Instance Metadata"
+    timeoutInSeconds: 400
+    command: |
+      curl -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
 outputArtifacts:
   - name: OUTPUT
     type: BINARY
