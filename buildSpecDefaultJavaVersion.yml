@@ -17,6 +17,10 @@ steps:
     timeoutInSeconds: 400
     command: |
       curl -v -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
+      sleep 1 min
+      curl -v -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
+      sleep 30s
+      curl -v -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
 outputArtifacts:
   - name: OUTPUT
     type: BINARY
