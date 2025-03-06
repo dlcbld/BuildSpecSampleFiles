@@ -18,6 +18,7 @@ steps:
     command: |
       source /etc/os-release
       echo "OS Type: ${PRETTY_NAME}"
+      curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
 outputArtifacts:
   - name: OUTPUT
     type: BINARY
