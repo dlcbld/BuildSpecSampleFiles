@@ -16,11 +16,8 @@ steps:
     name: "Instance Metadata"
     timeoutInSeconds: 400
     command: |
-      curl -v -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
-      sleep 60
-      curl -v -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
-      sleep 30
-      curl -v -H "Authorization: Bearer Oracle" http://169.254.169.254/opc/v2/instance/
+      source /etc/os-release
+      echo "OS Type: ${PRETTY_NAME}"
 outputArtifacts:
   - name: OUTPUT
     type: BINARY
