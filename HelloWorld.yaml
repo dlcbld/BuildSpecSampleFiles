@@ -1,44 +1,53 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: helloworld-demo
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: helloworld-deployment
-  namespace: helloworld-demo
-spec:
-  progressDeadlineSeconds: 180
-  selector:
-    matchLabels:
-      app: helloworld
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: helloworld
-    spec:
-      containers:
-        - name: helloworld
-          # enter the path to your image, be sure to include the correct region prefix
-          image: iad.ocir.io/ax022wvgmjpq/helloworld:v1
-          ports:
-            - containerPort: 8888
-              protocol: TCP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: helloworld-service
-  namespace: helloworld-demo
-  annotations: 
-    service.beta.kubernetes.io/oci-load-balancer-shape: "10Mbps"
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 8080
-      protocol: TCP
-      targetPort: 8888
-  selector:
-    app: helloworld
+version: 0.1
+component: build
+timeoutInSeconds: 1200
+shell: bash
+env:
+  variables:
+    FUNCTION_VERSION: 0.0.1
+  exportedVariables:
+    - EXPORTED_FUNCTION_NAME
+    - EXPORTED_APP_NAME
+    - EXPORTED_VERSION
+    - DOCKER_IMAGE_TAG
+
+steps:
+  - type: Command
+    name: "Prepare variables"
+    command: |
+      # コンソールで設定したパイプラインパラメータをexportedVariablesへ設定
+      export EXPORTED_FUNCTION_NAME="FUNCTION_NAME"
+      export EXPORTED_APP_NAME="APP_NAME"
+      export EXPORTED_VERSION="VERSION"
+
+  - type: Command
+    name: "Install Python Dependencies"
+    timeoutInSeconds: 300
+    command: |
+      cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
+      if [ -f requirements.txt ]; then
+        if [ ! -d func ] || [ requirements.txt -nt func ]; then
+          echo "Installing dependencies from requirements.txt"
+          pip3 install --upgrade pip
+          pip3 install -r requirements.txt --target func
+        else
+          echo "No change in requirements.txt. Skipping pip install."
+        fi
+      else
+        echo "No requirements.txt found. Skipping dependency installation."
+      fi
+
+  - type: Command
+    name: "Build COI Function and Tag Docker Image"
+    timeoutInSeconds: 600
+    command: |
+      echo "Starting function build"
+      cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
+      fn build --verbose
+      export DOCKER_IMAGE_TAG=${EXPORTED_FUNCTION_NAME}:${EXPORTED_VERSION}
+      docker tag ${EXPORTED_FUNCTION_NAME}:${FUNCTION_VERSION} ${DOCKER_IMAGE_TAG}
+
+outputArtifacts:
+  - name: function_build_output
+    type: DOCKER_IMAGE
+    location: ${DOCKER_IMAGE_TAG}
