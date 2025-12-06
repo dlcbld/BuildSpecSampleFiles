@@ -16,29 +16,29 @@ steps:
     name: "Prepare variables"
     command: |
       # コンソールで設定したパイプラインパラメータをexportedVariablesへ設定
-      export EXPORTED_FUNCTION_NAME="FUNCTION_NAME"
-      export EXPORTED_APP_NAME="APP_NAME"
-      export EXPORTED_VERSION="VERSION"
+      export EXPORTED_FUNCTION_NAME=${FUNCTION_NAME}
+      export EXPORTED_APP_NAME=${APP_NAME}
+      export EXPORTED_VERSION=${VERSION}
+
+  # - type: Command
+  #   name: "Install Python Dependencies"
+  #   timeoutInSeconds: 300
+  #   command: |
+  #     cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
+  #     if [ -f requirements.txt ]; then
+  #       if [ ! -d func ] || [ requirements.txt -nt func ]; then
+  #         echo "Installing dependencies from requirements.txt"
+  #         pip3 install --upgrade pip
+  #         pip3 install -r requirements.txt --target func
+  #       else
+  #         echo "No change in requirements.txt. Skipping pip install."
+  #       fi
+  #     else
+  #       echo "No requirements.txt found. Skipping dependency installation."
+  #     fi
 
   - type: Command
-    name: "Install Python Dependencies"
-    timeoutInSeconds: 300
-    command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
-      if [ -f requirements.txt ]; then
-        if [ ! -d func ] || [ requirements.txt -nt func ]; then
-          echo "Installing dependencies from requirements.txt"
-          pip3 install --upgrade pip
-          pip3 install -r requirements.txt --target func
-        else
-          echo "No change in requirements.txt. Skipping pip install."
-        fi
-      else
-        echo "No requirements.txt found. Skipping dependency installation."
-      fi
-
-  - type: Command
-    name: "Build COI Function and Tag Docker Image"
+    name: "Build OCI Function and Tag Docker Image"
     timeoutInSeconds: 600
     command: |
       echo "Starting function build"
