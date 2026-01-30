@@ -20,17 +20,17 @@ steps:
       export EXPORTED_APP_NAME=${APP_NAME}
       export EXPORTED_VERSION=${VERSION}
   - type: Command  
-     timeoutInSeconds: 600
-     name: "change container engine type"
-     command: |
-       ls -lart  
-       echo "hello world!"  
-       cat ~/.fn/config.yaml  
-       cat <<EOF >> ~/.fn/config.yaml  
-       container-enginetype: podman  
-       current-context: default  
-       EOF  
-       cat ~/.fn/config.yaml  
+    timeoutInSeconds: 600
+    name: "change container engine type"
+    command: |
+      ls -lart  
+      echo "hello world!"  
+      cat ~/.fn/config.yaml  
+      cat <<EOF >> ~/.fn/config.yaml  
+      container-enginetype: podman  
+      current-context: default  
+      EOF  
+      cat ~/.fn/config.yaml  
   - type: Command
     timeoutInSeconds: 600
     name: "Unset pip proxy"
