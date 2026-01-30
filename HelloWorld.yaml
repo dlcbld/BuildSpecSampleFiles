@@ -26,7 +26,7 @@ steps:
       echo "pip proxy"
       pip3 config list
       pip3 config unset global.proxy
-      # pip3 install Flask
+      podman volume create --opt device=tmpfs --opt type=tmpfs --opt o=size=2M,nodev,noexec fniofsvol
       pip3 install -r requirements.txt --target func
       echo "fn version"
       fn version
@@ -58,6 +58,7 @@ steps:
       fn use context abhishek-oci-context
       echo "fn ls contexts"
       fn ls contexts
+      fn start --iofs-dir fniofsvol --data-dir fniofsvol
       # mkdir -p ~/.fn/iofs
       # mkdir -p ~/.fn/data
       # echo "fn start"
