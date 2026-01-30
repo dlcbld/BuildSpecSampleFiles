@@ -49,8 +49,9 @@ steps:
       fn create context abhishek-oci-context 
       echo "fn ls contexts"
       fn ls contexts
+      mkdir -p ~/.fn/iofs
       echo "fn start"
-      fn start
+      fn start --log-level DEBUG
       echo "fn create app java-app"
       fn create app java-app
       fn list apps
