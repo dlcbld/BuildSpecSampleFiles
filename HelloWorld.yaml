@@ -19,6 +19,7 @@ steps:
       export EXPORTED_FUNCTION_NAME=${FUNCTION_NAME}
       export EXPORTED_APP_NAME=${APP_NAME}
       export EXPORTED_VERSION=${VERSION}
+      export OCI_REGION=us-ashburn-1
   - type: Command
     timeoutInSeconds: 600
     name: "Unset pip proxy and install func"
