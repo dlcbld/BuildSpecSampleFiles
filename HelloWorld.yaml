@@ -53,6 +53,7 @@ steps:
       fn create context us-ashburn-1 --provider oracle-cs
       fn use context us-ashburn-1
       fn update context api-url https://functions.us-ashburn-1.oci.oraclecloud.com
+      fn update context oracle.compartment-id ocid1.tenancy.oc1..aaaaaaaahzd35eshtcnfsa5to73bazwup5j6pcyswwiyikpxonk5ojfbmtaa
       echo "fn ls contexts"
       fn ls contexts
       # Ensure directories exist
@@ -79,6 +80,7 @@ steps:
       fn init --runtime java javafn1
       cd javafn1
       cat func.yaml
+      echo $OCI_REGION
       fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
       # echo "fn create app java-app"
       # fn create app java-app
