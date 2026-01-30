@@ -45,8 +45,11 @@ steps:
       curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
       echo "fn version after curl"
       fn version
-      # echo "fn ls contexts"
-      # fn ls contexts
+      cho "fn create context"
+      fn create context abhishek-oci-context --provider oracle
+      fn use context abhishek-oci-context
+      echo "fn ls contexts"
+      fn ls contexts
       # fn create context my-local-ctx --api-url http://localhost:8080 --registry fnlocal
       # echo "fn ls contexts"
       # fn ls contexts
