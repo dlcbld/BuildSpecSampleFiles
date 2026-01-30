@@ -21,7 +21,7 @@ steps:
       export EXPORTED_VERSION=${VERSION}
   - type: Command  
      timeoutInSeconds: 600  
-     name: "change container engine type  
+     name: "change container engine type" 
      command: |  
        ls -lart  
        echo "hello world!"  
