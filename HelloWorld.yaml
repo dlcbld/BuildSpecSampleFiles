@@ -55,13 +55,15 @@ steps:
       echo "fn ls contexts"
       fn ls contexts
       # Ensure directories exist
-      mkdir -p ~/.fn/data ~/.fn/iofs
-      # Start server with necessary Podman overrides
-      FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs \
-      FN_DATA_DIR=$HOME/.fn/data \
-      DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')" \
-      fn start
-
+      # mkdir -p ~/.fn/data ~/.fn/iofs
+      # # Start server with necessary Podman overrides
+      # FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs \
+      # FN_DATA_DIR=$HOME/.fn/data \
+      # DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')" \
+      # fn start
+      podman machine stop
+      podman machine set --rootful
+      podman machine start
       
       # export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
       # mkdir -p ~/.fn/iofs
