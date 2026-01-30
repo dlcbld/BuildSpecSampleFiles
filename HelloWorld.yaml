@@ -59,7 +59,8 @@ steps:
       fn ls contexts
       mkdir -p ~/.fn/iofs
       echo "fn start"
-      fn start --log-level DEBUG --iofs-dir ~/.fn/iofs
+      fn start --log-level DEBUG 
+      # --iofs-dir ~/.fn/iofs
       echo "fn create app java-app"
       fn create app java-app
       fn list apps
