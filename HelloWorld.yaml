@@ -40,35 +40,40 @@ steps:
       pip3 config unset global.proxy
       pip3 install Flask
       pip3 install -r requirements.txt --target func
-      fn build --verbose
-  - type: Command
-    name: "Install Python Dependencies"
-    timeoutInSeconds: 300
-    command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
-      if [ -f requirements.txt ]; then
-        if [ ! -d func ] || [ requirements.txt -nt func ]; then
-          echo "Installing dependencies from requirements.txt"
-          pip3 install --upgrade pip
-          pip3 install -r requirements.txt --target func
-        else
-          echo "No change in requirements.txt. Skipping pip install."
-        fi
-      else
-        echo "No requirements.txt found. Skipping dependency installation."
-      fi
+      fn init --runtime java javafn
+      cd javafn
+      cat func.yaml
+      fn list contexts
+      fn create app java-app
+      fn --verbose deploy --app java-app --local
+#   - type: Command
+#     name: "Install Python Dependencies"
+#     timeoutInSeconds: 300
+#     command: |
+#       cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
+#       if [ -f requirements.txt ]; then
+#         if [ ! -d func ] || [ requirements.txt -nt func ]; then
+#           echo "Installing dependencies from requirements.txt"
+#           pip3 install --upgrade pip
+#           pip3 install -r requirements.txt --target func
+#         else
+#           echo "No change in requirements.txt. Skipping pip install."
+#         fi
+#       else
+#         echo "No requirements.txt found. Skipping dependency installation."
+#       fi
 
-  - type: Command
-    name: "Build OCI Function and Tag Docker Image"
-    timeoutInSeconds: 600
-    command: |
-      echo "Starting function build"
-      cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
-      fn build --verbose
-      export DOCKER_IMAGE_TAG=${EXPORTED_FUNCTION_NAME}:${EXPORTED_VERSION}
-      docker tag ${EXPORTED_FUNCTION_NAME}:${FUNCTION_VERSION} ${DOCKER_IMAGE_TAG}
+#   - type: Command
+#     name: "Build OCI Function and Tag Docker Image"
+#     timeoutInSeconds: 600
+#     command: |
+#       echo "Starting function build"
+#       cd ${OCI_PRIMARY_SOURCE_DIR}/functions/${EXPORTED_FUNCTION_NAME}
+#       fn build --verbose
+#       export DOCKER_IMAGE_TAG=${EXPORTED_FUNCTION_NAME}:${EXPORTED_VERSION}
+#       docker tag ${EXPORTED_FUNCTION_NAME}:${FUNCTION_VERSION} ${DOCKER_IMAGE_TAG}
 
-outputArtifacts:
-  - name: function_build_output
-    type: DOCKER_IMAGE
-    location: ${DOCKER_IMAGE_TAG}
+# outputArtifacts:
+#   - name: function_build_output
+#     type: DOCKER_IMAGE
+#     location: ${DOCKER_IMAGE_TAG}
