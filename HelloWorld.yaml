@@ -58,6 +58,7 @@ steps:
       echo "fn ls contexts"
       fn ls contexts
       mkdir -p ~/.fn/iofs
+      mkdir -p ~/.fn/data
       echo "fn start"
       fn start --log-level DEBUG 
       # --iofs-dir ~/.fn/iofs
