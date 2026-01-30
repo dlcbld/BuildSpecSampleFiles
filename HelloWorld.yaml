@@ -19,21 +19,9 @@ steps:
       export EXPORTED_FUNCTION_NAME=${FUNCTION_NAME}
       export EXPORTED_APP_NAME=${APP_NAME}
       export EXPORTED_VERSION=${VERSION}
-  - type: Command  
-    timeoutInSeconds: 600
-    name: "change container engine type"
-    command: |
-      ls -lart  
-      echo "hello world!"  
-      cat ~/.fn/config.yaml  
-      cat <<EOF >> ~/.fn/config.yaml  
-      container-enginetype: podman  
-      current-context: default  
-      EOF  
-  #     cat ~/.fn/config.yaml  
   - type: Command
     timeoutInSeconds: 600
-    name: "Unset pip proxy and fn build"
+    name: "Unset pip proxy and install func"
     command: |
       echo "pip proxy"
       pip3 config list
@@ -42,6 +30,22 @@ steps:
       pip3 install -r requirements.txt --target func
       echo "fn version"
       fn version
+  - type: Command  
+    timeoutInSeconds: 600
+    name: "change container engine type"
+    command: |
+      ls -lart
+      cat ~/.fn/config.yaml  
+      cat <<EOF >> ~/.fn/config.yaml  
+      container-enginetype: podman  
+      current-context: default  
+      EOF  
+      cat ~/.fn/config.yaml  
+  
+  - type: Command  
+    timeoutInSeconds: 600
+    name: "fn deploy"
+    command: |
       echo "fn ls contexts"
       fn ls contexts
       echo "fn create context"
@@ -51,39 +55,11 @@ steps:
       fn ls contexts
       mkdir -p ~/.fn/iofs
       echo "fn start"
-      fn start --log-level DEBUG
+      fn start --log-level DEBUG --iofs-dir ~/.fn/iofs
       echo "fn create app java-app"
       fn create app java-app
       fn list apps
       fn --verbose deploy --app java-app --local
-      
-      # echo "fn create app java-app with annotation"
-      # fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
-      # fn list apps
-      # fn --verbose deploy --app java-app --local
-      
-      # curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
-      # echo "fn version after curl"
-      # fn version
-      # echo "fn create context"
-      # fn create context abhishek-oci-context --provider oracle
-      # fn use context abhishek-oci-context
-      # echo "fn ls contexts"
-      # fn ls contexts
-      # fn create context my-local-ctx --api-url http://localhost:8080 --registry fnlocal
-      # echo "fn ls contexts"
-      # fn ls contexts
-      # fn use context my-local-ctx
-      # echo "fn ls contexts"
-      # fn ls contexts
-      # echo "fn init"
-      # fn init --runtime java javafn
-      # cd javafn
-      # echo "cat func.yaml"
-      # cat func.yaml
-      # fn list contexts
-      # fn create app java-app
-      # fn --verbose deploy --app java-app --local
 #   - type: Command
 #     name: "Install Python Dependencies"
 #     timeoutInSeconds: 300
