@@ -61,7 +61,10 @@ steps:
       echo "fn ls contexts"
       fn ls contexts
       export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
-      fn start --iofs-dir fniofsvol --data-dir fniofsvol
+      mkdir -p ~/.fn/iofs
+      export FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs
+      fn start
+      # fn start --iofs-dir fniofsvol --data-dir fniofsvol
       # mkdir -p ~/.fn/iofs
       # mkdir -p ~/.fn/data
       # echo "fn start"
