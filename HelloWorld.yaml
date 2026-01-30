@@ -54,14 +54,15 @@ steps:
       fn ls contexts
       echo "fn create context"
       # fn update context oracle.compartment-id ocid1.tenancy.oc1..aaaaaaaahzd35eshtcnfsa5to73bazwup5j6pcyswwiyikpxonk5ojfbmtaa
-      fn create context abhishek-oci-context 
+      fn create context abhishek-oci-context
+      fn use context abhishek-oci-context
       echo "fn ls contexts"
       fn ls contexts
-      mkdir -p ~/.fn/iofs
-      mkdir -p ~/.fn/data
-      echo "fn start"
-      fn start --log-level DEBUG 
-      # --iofs-dir ~/.fn/iofs
+      # mkdir -p ~/.fn/iofs
+      # mkdir -p ~/.fn/data
+      # echo "fn start"
+      # fn start --log-level DEBUG 
+      # # --iofs-dir ~/.fn/iofs
       echo "fn create app java-app"
       fn create app java-app
       fn list apps
