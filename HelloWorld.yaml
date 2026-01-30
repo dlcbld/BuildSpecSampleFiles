@@ -20,6 +20,8 @@ steps:
       export EXPORTED_APP_NAME=${APP_NAME}
       export EXPORTED_VERSION=${VERSION}
       export OCI_REGION=us-ashburn-1
+      echo $OCI_REGION
+
   - type: Command
     timeoutInSeconds: 600
     name: "Unset pip proxy and install func"
@@ -81,9 +83,9 @@ steps:
       cd javafn1
       cat func.yaml
       echo $OCI_REGION
-      fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
-      # echo "fn create app java-app"
-      # fn create app java-app
+      # fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
+      echo "fn create app java-app"
+      fn create app java-app
       fn list apps
       # fn --verbose deploy --app java-app --local
 #   - type: Command
