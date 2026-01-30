@@ -54,9 +54,18 @@ steps:
       fn update context api-url https://functions.us-ashburn-1.oci.oraclecloud.com
       echo "fn ls contexts"
       fn ls contexts
-      export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
-      mkdir -p ~/.fn/iofs
-      export FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs
+      # Ensure directories exist
+      mkdir -p ~/.fn/data ~/.fn/iofs
+      # Start server with necessary Podman overrides
+      FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs \
+      FN_DATA_DIR=$HOME/.fn/data \
+      DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')" \
+      fn start
+
+      
+      # export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
+      # mkdir -p ~/.fn/iofs
+      # export FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs
       # fn start
       # fn start --iofs-dir fniofsvol --data-dir fniofsvol
       # mkdir -p ~/.fn/iofs
