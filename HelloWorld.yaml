@@ -38,21 +38,26 @@ steps:
       echo "pip proxy"
       pip3 config list
       pip3 config unset global.proxy
-      pip3 install Flask
+      # pip3 install Flask
       pip3 install -r requirements.txt --target func
-      echo "fn ls contexts"
-      fn ls contexts
-      fn create context my-local-ctx --api-url http://localhost:8080 --registry fnlocal
-      echo "fn ls contexts"
-      fn ls contexts
-      fn use context my-local-ctx
-      echo "fn ls contexts"
-      fn ls contexts
-      echo "fn init"
-      fn init --runtime java javafn
-      cd javafn
-      echo "cat func.yaml"
-      cat func.yaml
+      echo "fn version"
+      fn version
+      curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
+      echo "fn version after curl"
+      fn version
+      # echo "fn ls contexts"
+      # fn ls contexts
+      # fn create context my-local-ctx --api-url http://localhost:8080 --registry fnlocal
+      # echo "fn ls contexts"
+      # fn ls contexts
+      # fn use context my-local-ctx
+      # echo "fn ls contexts"
+      # fn ls contexts
+      # echo "fn init"
+      # fn init --runtime java javafn
+      # cd javafn
+      # echo "cat func.yaml"
+      # cat func.yaml
       # fn list contexts
       # fn create app java-app
       # fn --verbose deploy --app java-app --local
