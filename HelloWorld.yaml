@@ -34,12 +34,6 @@ steps:
     timeoutInSeconds: 600
     name: "change container engine type"
     command: |
-      # ls -lart
-      # cat ~/.fn/config.yaml  
-      # cat <<EOF >> ~/.fn/config.yaml  
-      # container-enginetype: podman  
-      # current-context: default  
-      # EOF  
       cat <<EOF > ~/.fn/config.yaml
       container-enginetype: podman
       current-context: default
@@ -63,7 +57,7 @@ steps:
       export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
       mkdir -p ~/.fn/iofs
       export FN_IOFS_DOCKER_PATH=$HOME/.fn/iofs
-      fn start
+      # fn start
       # fn start --iofs-dir fniofsvol --data-dir fniofsvol
       # mkdir -p ~/.fn/iofs
       # mkdir -p ~/.fn/data
