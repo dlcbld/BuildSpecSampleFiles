@@ -56,6 +56,7 @@ steps:
       # fn update context oracle.compartment-id ocid1.tenancy.oc1..aaaaaaaahzd35eshtcnfsa5to73bazwup5j6pcyswwiyikpxonk5ojfbmtaa
       fn create context abhishek-oci-context
       fn use context abhishek-oci-context
+      fn update context api-url http://localhost:8080
       echo "fn ls contexts"
       fn ls contexts
       fn start --iofs-dir fniofsvol --data-dir fniofsvol
