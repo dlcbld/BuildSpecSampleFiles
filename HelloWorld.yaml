@@ -61,9 +61,9 @@ steps:
       # FN_DATA_DIR=$HOME/.fn/data \
       # DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')" \
       # fn start
-      podman machine stop
-      podman machine set --rootful
-      podman machine start
+      # podman machine stop
+      # podman machine set --rootful
+      # podman machine start
       
       # export DOCKER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
       # mkdir -p ~/.fn/iofs
@@ -75,10 +75,14 @@ steps:
       # echo "fn start"
       # fn start --log-level DEBUG 
       # # --iofs-dir ~/.fn/iofs
-      echo "fn create app java-app"
-      fn create app java-app
+      fn init --runtime java javafn1
+      cd javafn1
+      cat func.yaml
+      fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
+      # echo "fn create app java-app"
+      # fn create app java-app
       fn list apps
-      fn --verbose deploy --app java-app --local
+      # fn --verbose deploy --app java-app --local
 #   - type: Command
 #     name: "Install Python Dependencies"
 #     timeoutInSeconds: 300
