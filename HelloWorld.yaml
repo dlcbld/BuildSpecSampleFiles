@@ -45,18 +45,21 @@ steps:
       echo "fn ls contexts"
       fn ls contexts
       echo "fn create context"
-      fn update context oracle.compartment-id ocid1.tenancy.oc1..aaaaaaaahzd35eshtcnfsa5to73bazwup5j6pcyswwiyikpxonk5ojfbmtaa
+      # fn update context oracle.compartment-id ocid1.tenancy.oc1..aaaaaaaahzd35eshtcnfsa5to73bazwup5j6pcyswwiyikpxonk5ojfbmtaa
       fn create context abhishek-oci-context 
       echo "fn ls contexts"
       fn ls contexts
+      echo "fn start"
+      fn start
       echo "fn create app java-app"
       fn create app java-app
       fn list apps
       fn --verbose deploy --app java-app --local
-      echo "fn create app java-app with annotation"
-      fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
-      fn list apps
-      fn --verbose deploy --app java-app --local
+      
+      # echo "fn create app java-app with annotation"
+      # fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
+      # fn list apps
+      # fn --verbose deploy --app java-app --local
       
       # curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
       # echo "fn version after curl"
