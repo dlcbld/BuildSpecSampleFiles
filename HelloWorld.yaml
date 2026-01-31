@@ -84,7 +84,7 @@ steps:
       cd javafn1
       cat func.yaml
       echo $OCI_REGION
-      fn create app java-app --annotation ://oracle.com'["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
+      fn create app java-app --region us-ashburn-1 --annotation ://oracle.com'["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
       # fn create app java-app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.iad.aaaaaaaarra7csuini5ybrwpsqpvmkbxtxlgtnpsg5w3vllel3e3htbkk56q"]'
       echo "fn create app java-app"
       # fn create app java-app
