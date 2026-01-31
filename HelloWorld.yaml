@@ -10,6 +10,7 @@ env:
     - EXPORTED_APP_NAME
     - EXPORTED_VERSION
     - DOCKER_IMAGE_TAG
+    - OCI_REGION
 
 steps:
   - type: Command
